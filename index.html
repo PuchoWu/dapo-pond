@@ -31,13 +31,22 @@
       color: var(--text);
       line-height: 1.6;
     }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url('intro-bg.png') center / cover no-repeat;
+      opacity: 0.07;
+      z-index: -1;
+      pointer-events: none;
+    }
 
     /* ── Hero Banner ── */
     .hero {
       position: relative;
       height: 220px;
       background-color: var(--primary);
-      background-image: url('banner.jpg');
+      background-image: url('banner.png');
       background-size: cover;
       background-position: center 40%;
       display: flex;
@@ -75,8 +84,13 @@
 
     /* ── Intro ── */
     .intro {
-      background: var(--primary);
-      color: rgba(255,255,255,0.82);
+      background-color: var(--primary);
+      background-image:
+        linear-gradient(to right, rgba(14,36,22,0.88) 0%, rgba(30,65,45,0.78) 50%, rgba(14,36,22,0.88) 100%),
+        url('banner.png');
+      background-size: auto, cover;
+      background-position: 0 0, center 55%;
+      color: rgba(255,255,255,0.88);
       padding: 0.85rem 1.25rem;
       font-size: 13.5px;
       text-align: center;
@@ -305,15 +319,76 @@
       color: rgba(255,255,255,0.9);
     }
 
-    .modal-img {
+    /* ── Carousel ── */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      background: #f2f7f4;
+      user-select: none;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .carousel-slide img {
       width: 100%;
       max-height: 260px;
       object-fit: contain;
-      display: block;
-      background: #f2f7f4;
-      padding: 14px;
+      padding: 14px 14px 8px;
     }
-    @media (min-width: 600px) { .modal-img { max-height: 320px; } }
+    @media (min-width: 600px) { .carousel-slide img { max-height: 320px; } }
+    .carousel-caption {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      padding: 0 14px 10px;
+      align-self: flex-start;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(44,95,63,0.72);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 34px; height: 34px;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.15s;
+      touch-action: manipulation;
+    }
+    .carousel-btn:hover { background: rgba(44,95,63,0.92); }
+    .carousel-prev { left: 8px; }
+    .carousel-next { right: 8px; }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      padding: 6px 0 10px;
+    }
+    .carousel-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(44,95,63,0.25);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s;
+    }
+    .carousel-dot.active { background: var(--primary); }
 
     .modal-body { padding: 1rem 1.25rem 1.75rem; }
 
@@ -349,15 +424,18 @@
 
     /* ── Footer ── */
     .site-footer {
-      background: var(--primary);
-      color: rgba(255,255,255,0.6);
+      background-color: #c8e4de;
+      background-image: url('footer-bg.png');
+      background-size: cover;
+      background-position: center bottom;
+      color: #2a4a3a;
       text-align: center;
-      padding: 1.75rem 1rem;
+      padding: 2.5rem 1rem 3rem;
       font-size: 12px;
       margin-top: 2rem;
       line-height: 2;
     }
-    .site-footer strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+    .site-footer strong { color: #0f2419; font-weight: 500; }
   </style>
 </head>
 <body>
@@ -407,13 +485,11 @@
       <p class="modal-sci"    id="modal-sci"></p>
       <div class="modal-badges" id="modal-badges"></div>
     </div>
-    <img class="modal-img" id="modal-img" src="" alt=""
-         onerror="this.style.display='none'">
-    <div id="modal-img2-wrap" style="display:none; padding: 0 1.25rem 0.5rem; background:#f2f7f4;">
-      <p style="font-size:11px;color:#7a9485;padding:8px 0 4px;letter-spacing:1px;">卵塊特寫</p>
-      <img id="modal-img2" src="" alt="卵塊"
-           style="width:100%;max-height:200px;object-fit:contain;border-radius:8px;background:#fff;"
-           onerror="this.parentElement.style.display='none'">
+    <div class="carousel" id="modal-carousel">
+      <div class="carousel-track" id="carousel-track"></div>
+      <button class="carousel-btn carousel-prev" id="carousel-prev" onclick="carouselMove(-1)">&#8249;</button>
+      <button class="carousel-btn carousel-next" id="carousel-next" onclick="carouselMove(1)">&#8250;</button>
+      <div class="carousel-dots" id="carousel-dots"></div>
     </div>
     <div class="modal-body">
       <div class="modal-aliases" id="modal-aliases"></div>
@@ -489,7 +565,7 @@ const SPECIES = [
     desc:'因甲殼表面粗糙有顆粒感而得名。雜食性，主要以藻類、植物碎片或小型底棲動物為食，為陸封型蝦種，不需降海即可繁殖。常以炸溪蝦的菜色出現於山產店販售。' },
   { id:13, name:'日本沼蝦',   sci:'Macrobrachium nipponense',
     aliases:'青蝦、河蝦、大頭蝦',
-    cat:'native', type:'shrimp', size:'至 8 cm', endemic:false, img:'日本沼蝦1.jpg',
+    cat:'native', type:'shrimp', size:'至 8 cm', endemic:false, img:'日本沼蝦1.jpg', img2:'日本沼蝦2.jpg',
     desc:'體色淡棕色至青灰色。雖然名字裡有「日本」兩字，但日本沼蝦並不是外來種，牠們廣泛分布於東亞地區。雜食性，主要以藻類、有機碎屑、小型底棲動物等為食。生活史包含陸封型與兩側洄游型。' },
   { id:14, name:'多齒新米蝦', sci:'Neocaridina denticulata',
     aliases:'',
@@ -560,7 +636,7 @@ const SPECIES = [
     desc:'全身覆蓋骨質甲片，外觀獨特，體色黑色而具有許多黃色的不規則紋路，有特化的吸盤狀口器。好啃食藻類、草根，對於魚、蝦卵有嚴重的危害。適應力強，耐汙染，離水亦可存活一段時間。' },
   { id:30, name:'福壽螺',            sci:'Pomacea canaliculate',
     aliases:'金寶螺、蘋果螺',
-    cat:'invasive', type:'mollusk', size:'大型', endemic:false, img:'福壽螺.jpg', img2:'福壽螺卵.jpg',
+    cat:'invasive', type:'mollusk', size:'大型', endemic:false, img:'福壽螺.jpg', img2:'福壽螺卵.jpg', img2caption:'粉紅色卵塊特寫',
     desc:'外殼圓球狀，體型遠大於臺灣原生螺類。適應能力極強，大部分溝渠湖沼皆可存活，在乾燥季節，螺體可潛入泥中或雜草叢下，緊閉殼蓋進入休眠狀態，休眠期可達六個月以上。會在凸出水面的物體上產下粉紅色卵塊，為水生作物的嚴重危害動物。' },
 ];
 
@@ -615,20 +691,9 @@ function openModal(id) {
     ${s.endemic ? '<span class="modal-badge-ghost">台灣特有種</span>' : ''}
   `;
 
-  const img = document.getElementById('modal-img');
-  if (s.img) {
-    img.src = s.img; img.alt = s.name; img.style.display = 'block';
-  } else {
-    img.style.display = 'none';
-  }
-
-  const img2wrap = document.getElementById('modal-img2-wrap');
-  if (s.img2) {
-    document.getElementById('modal-img2').src = s.img2;
-    img2wrap.style.display = 'block';
-  } else {
-    img2wrap.style.display = 'none';
-  }
+  const imgs = [s.img, s.img2].filter(Boolean);
+  const caps = ['', s.img2caption || ''];
+  buildCarousel(imgs, caps);
 
   document.getElementById('modal-aliases').innerHTML = s.aliases
     ? `<em>別名：</em>${s.aliases}`
@@ -648,6 +713,64 @@ function closeModal() {
   document.getElementById('backdrop').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+/* ── Carousel ── */
+let _imgs = [], _idx = 0;
+
+function buildCarousel(imgs, captions) {
+  _imgs = imgs; _idx = 0;
+  const track = document.getElementById('carousel-track');
+  const dots  = document.getElementById('carousel-dots');
+  const prev  = document.getElementById('carousel-prev');
+  const next  = document.getElementById('carousel-next');
+
+  if (!imgs.length) {
+    track.innerHTML = '';
+    dots.innerHTML  = '';
+    prev.style.display = next.style.display = 'none';
+    return;
+  }
+
+  track.innerHTML = imgs.map((src, i) => `
+    <div class="carousel-slide">
+      <img src="${src}" alt="物種圖片" loading="lazy"
+           onerror="this.parentElement.style.opacity='0.3'">
+      ${captions[i] ? `<span class="carousel-caption">${captions[i]}</span>` : ''}
+    </div>`).join('');
+
+  const multi = imgs.length > 1;
+  prev.style.display = next.style.display = multi ? 'flex' : 'none';
+  dots.innerHTML = multi
+    ? imgs.map((_, i) => `<button class="carousel-dot${i===0?' active':''}" onclick="carouselGo(${i})"></button>`).join('')
+    : '';
+
+  _updateCarousel();
+}
+
+function _updateCarousel() {
+  document.getElementById('carousel-track').style.transform = `translateX(-${_idx * 100}%)`;
+  document.querySelectorAll('.carousel-dot').forEach((d, i) =>
+    d.classList.toggle('active', i === _idx));
+}
+
+function carouselMove(dir) {
+  _idx = (_idx + dir + _imgs.length) % _imgs.length;
+  _updateCarousel();
+}
+
+function carouselGo(i) {
+  _idx = i;
+  _updateCarousel();
+}
+
+/* 觸控滑動 */
+let _tx = 0;
+const _carousel = document.getElementById('modal-carousel');
+_carousel.addEventListener('touchstart', e => { _tx = e.touches[0].clientX; }, { passive: true });
+_carousel.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - _tx;
+  if (Math.abs(dx) > 40) carouselMove(dx < 0 ? 1 : -1);
+});
 
 function onBackdropClick(e) {
   if (e.target === document.getElementById('backdrop')) closeModal();
