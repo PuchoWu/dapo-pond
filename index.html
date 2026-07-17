@@ -230,9 +230,9 @@
     .b-invasive   { background: var(--inv-light); color: var(--inv-dark); }
     .b-endemic    { background: var(--end-light); color: var(--end-dark); }
 
-    .card-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
-    .card-sci  { font-size: 9.5px; font-style: italic; color: var(--text-muted); line-height: 1.35; margin-bottom: 3px; }
-    .card-size { font-size: 10px; color: var(--text-sec); }
+    .card-name { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+    .card-sci  { font-size: 11px; font-style: italic; color: var(--text-muted); line-height: 1.35; margin-bottom: 3px; }
+    .card-size { font-size: 12px; color: var(--text-sec); }
 
     /* ── Modal ── */
     .modal-backdrop {
@@ -393,7 +393,7 @@
     .modal-body { padding: 1rem 1.25rem 1.75rem; }
 
     .modal-aliases {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-sec);
       margin-bottom: 12px;
       padding-bottom: 12px;
@@ -403,7 +403,7 @@
 
     .modal-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
     .meta-chip {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-sec);
       background: var(--page-bg);
       border: 1px solid var(--border);
@@ -411,7 +411,7 @@
       padding: 3px 12px;
     }
 
-    .modal-desc { font-size: 14.5px; color: var(--text); line-height: 1.85; }
+    .modal-desc { font-size: 16px; color: var(--text); line-height: 1.9; }
 
     /* ── Empty ── */
     .empty {
@@ -491,7 +491,7 @@
       <button class="carousel-btn carousel-next" id="carousel-next" onclick="carouselMove(1)">&#8250;</button>
       <div class="carousel-dots" id="carousel-dots"></div>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" id="modal-body">
       <div class="modal-aliases" id="modal-aliases"></div>
       <div class="modal-meta"    id="modal-meta"></div>
       <p   class="modal-desc"   id="modal-desc"></p>
@@ -502,7 +502,16 @@
 <!-- ── Footer ── -->
 <footer class="site-footer">
   <strong>大坡池水生生物圖鑑</strong><br>
-  臺東縣池上鄉環境教育資源 · 物種資料來源：現場生態調查記錄
+  製作：熊良心有限公司<br>
+  臺東縣池上鄉環境教育資源 · 物種資料來源：現場生態調查記錄<br>
+  <a href="https://github.com/PuchoWu/dapo-pond" target="_blank"
+     style="color:inherit;opacity:0.7;font-size:11px;">github.com/PuchoWu/dapo-pond</a><br>
+  <span style="font-size:11px;opacity:0.65;">
+    本作品採用
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hant" target="_blank"
+       style="color:inherit;">CC BY-NC-ND 4.0</a>
+    授權 · 非商業使用 · 禁止改作 · 需標示出處
+  </span>
 </footer>
 
 <script>
@@ -525,7 +534,7 @@ const SPECIES = [
   { id:3,  name:'菊池氏細鯽', sci:'Aphyocypris kikuchii',
     aliases:'禾花仔、madaka、田溝魚、便當魚',
     cat:'native', type:'fish', size:'至 8 cm', endemic:true, img:'菊池氏細鯽.jpg',
-    desc:'台灣特有種。身體為淺黃褐色，成魚體側有一灰藍色的縱帶。別名與稻田相關，顯示菊池氏細鯽與稻田的緊密關係，早期也是便當裡的一道菜色，因此又稱為便當魚。' },
+    desc:'台灣特有種。身體為淺黃褐色，成魚體側有一灰藍色的縱帶，但有時不明顯。別名與稻田相關，顯示菊池氏細鯽與稻田的緊密關係，早期也是便當裡的一道菜色，因此又稱為便當魚。' },
   { id:4,  name:'羅漢魚',     sci:'Pseudorasbora parva',
     aliases:'尖嘴仔、車栓仔、麥穗魚',
     cat:'native', type:'fish', size:'至 11 cm', endemic:false, img:'羅漢魚.jpg',
@@ -541,11 +550,11 @@ const SPECIES = [
   { id:7,  name:'何氏棘魞',   sci:'Spinibarbus hollandi',
     aliases:'捲仔',
     cat:'native', type:'fish', size:'至 60 cm', endemic:true, img:'何氏棘魞.jpg',
-    desc:'台灣特有種，東部原生魚類，在台灣西部為外來種。體背青灰色，腹部銀白色，全身覆蓋大型圓鱗，體側鱗片基部有一黑斑，胸鰭與腹鰭呈橘紅色。泳速快，好跳出水面捕食昆蟲。' },
+    desc:'台灣特有種，東部原生魚類，在台灣西部為外來種。體背青灰色，腹部銀白色，全身覆蓋大型圓鱗，胸鰭與腹鰭呈橘紅色。泳速快，好跳出水面捕食昆蟲。' },
   { id:8,  name:'高身白甲魚', sci:'Onychostoma alticorpus',
     aliases:'鮸仔、高身鯝魚',
     cat:'native', type:'fish', size:'至 50 cm', endemic:true, img:'高身白甲魚.jpg',
-    desc:'台灣特有種，曾被列入保育類。身體高而隆起，頭小且短圓，嘴巴朝下，體色銀白色，體背部為青綠色，胸、腹、臀鰭鰭膜為粉紅色。以附著於石頭上的藻類為主食，也吃水生昆蟲。' },
+    desc:'台灣特有種，曾被列入保育類。身體高而隆起，頭短圓，嘴巴朝下，體色銀白色，體背部為青綠色，魚鰭帶有粉紅色。以附著於石頭上的藻類為主食，也吃水生昆蟲。' },
   { id:9,  name:'鯔',         sci:'Mugil cephalus',
     aliases:'烏魚、信魚',
     cat:'native', type:'fish', size:'至 100 cm', endemic:false, img:'鯔.jpg',
@@ -557,7 +566,7 @@ const SPECIES = [
   { id:11, name:'極樂吻蝦虎', sci:'Rhinogobius similis',
     aliases:'苦甘仔、狗甘仔',
     cat:'native', type:'fish', size:'至 8 cm', endemic:false, img:'極樂吻蝦虎.jpg',
-    desc:'頭部較大，眼睛圓而突出，腹鰭癒合成吸盤狀，臉部具有蠕蟲狀斑，背鰭與尾鰭有許多斑紋。具有兩種生活史，一種是陸封型，另一種是兩側洄游型。肉食性，以小型水中無脊椎動物、小魚等為食。' },
+    desc:'腹鰭癒合成吸盤狀，臉部、背鰭與尾鰭有許多斑紋。具有兩種生活史，一種是陸封型，另一種是兩側洄游型。肉食性，以小型水中無脊椎動物、小魚等為食。' },
   /* ── 原生種 蝦類 ── */
   { id:12, name:'粗糙沼蝦',   sci:'Macrobrachium asperulum',
     aliases:'黑殼沼蝦',
@@ -574,36 +583,36 @@ const SPECIES = [
   /* ── 原生種 貝類 ── */
   { id:15, name:'石田螺',     sci:'Sinotaia quadrata',
     aliases:'',
-    cat:'native', type:'mollusk', size:'中型', endemic:false, img:'石田螺.jfif',
+    cat:'native', type:'mollusk', size:'至 3 cm', endemic:false, img:'石田螺.jpg',
     desc:'外殼呈螺旋錐形，與福壽螺的圓形外殼有明顯差異，殼面光滑，殼口有硬化的殼蓋可完全封閉。早期常見的小菜。可作為水質監測指標。' },
   { id:16, name:'圓蚌',       sci:'Anodonta woodiana',
     aliases:'田蚌、河蚌',
-    cat:'native', type:'mollusk', size:'大型', endemic:false, img:'圓蚌.jpg',
+    cat:'native', type:'mollusk', size:'至 30 cm', endemic:false, img:'圓蚌.jpg',
     desc:'雙殼橢圓形，殼面呈黃綠至棕褐色，有清晰的年輪生長紋。與高體鰟鮍、臺灣石鮒有共生關係，是這兩種魚繁殖時不可缺少的夥伴。' },
   { id:17, name:'臺灣蜆',     sci:'Corbicula fluminea',
     aliases:'蜆仔、蚶仔',
-    cat:'native', type:'mollusk', size:'小型', endemic:false, img:'台灣蜆.jpg',
+    cat:'native', type:'mollusk', size:'1.5–2.5 cm', endemic:false, img:'台灣蜆.jpg',
     desc:'小型雙殼貝，殼面有明顯的放射狀紋路，殼色從黃褐到黑褐色不等。對水質敏感，是水質監測指標，俗語「摸蜆兼洗褲」說的就是牠。' },
   /* ── 外來原生種 魚類 ── */
   { id:18, name:'䱗',          sci:'Hemiculter leucisculus',
     aliases:'奇力仔、白條',
-    cat:'introduced', type:'fish', size:'中型', endemic:false, img:'䱗.jpg',
+    cat:'introduced', type:'fish', size:'至 25 cm', endemic:false, img:'䱗.jpg',
     desc:'體型細長流線，側面呈刀片狀，體色銀白，背部略帶淡藍，全身反光強。早年僅分布於台灣北、西、南部，後經人為移放東部。主要攝食藻類，也食植物碎屑、無脊椎動物等。繁殖力及適應性強。' },
   { id:19, name:'斯奈德小鲃',  sci:'Puntius snyderi',
     aliases:'紅目猴、史尼氏小䰾',
-    cat:'introduced', type:'fish', size:'小型', endemic:false, img:'斯奈德小鲃.jpg',
+    cat:'introduced', type:'fish', size:'至 9 cm', endemic:false, img:'斯奈德小鲃.jpg',
     desc:'體側中央具有四個橢圓的塊狀黑斑，背部散布不規則小黑點，眼睛具有紅色光澤。早年僅分布於臺灣北部及中部地區，後經人為移放東部。雜食性，以藻類、小型無脊椎動物為主。' },
   { id:20, name:'條紋小鲃',    sci:'Puntius semifasciolatus',
     aliases:'紅目猴、半紋小䰾、條紋二鬚䰾',
-    cat:'introduced', type:'fish', size:'小型', endemic:false, img:'條紋小鲃.jpg',
+    cat:'introduced', type:'fish', size:'至 10 cm', endemic:false, img:'條紋小鲃.jpg',
     desc:'體側具有黑色條狀或點狀的橫帶，約有 7–10 條橫帶，背部散布不規則小黑點，眼具有紅色光澤。早年僅分布於臺灣南部，後經人為移放東部。雜食性，以絲藻、小型無脊椎動物為主。' },
   { id:21, name:'粗首馬口鱲',  sci:'Opsariichthys pachycephalus',
     aliases:'紅貓、溪哥',
-    cat:'introduced', type:'fish', size:'中型', endemic:true, img:'粗首馬口鱲.jpg',
+    cat:'introduced', type:'fish', size:'至 16 cm', endemic:true, img:'粗首馬口鱲.jpg',
     desc:'台灣特有種。雄魚繁殖期豔麗奪目——吻部出現追星，體側為鮮豔的紅色與藍綠色。早年僅分布於台灣北、西部，後經人為移放東部。偏肉食性，以昆蟲、小型脊椎動物為主。' },
   { id:22, name:'臺灣石賓',    sci:'Acrossocheilus paradoxus',
     aliases:'石斑',
-    cat:'introduced', type:'fish', size:'中型', endemic:true, img:'臺灣石賓.jpg',
+    cat:'introduced', type:'fish', size:'至 20 cm', endemic:true, img:'臺灣石賓.jpg',
     desc:'台灣特有種。體呈黃綠色，體側具 7 條黑色橫帶，以幼魚最為明顯，成魚體色逐漸變暗，橫帶也逐漸不明顯。早年僅分布於台灣北、西、南部，後經人為移放東部。雜食性。' },
   { id:23, name:'明潭吻蝦虎',  sci:'Rhinogobius candidianus',
     aliases:'苦甘仔、狗甘仔',
@@ -612,31 +621,31 @@ const SPECIES = [
   /* ── 外來種 ── */
   { id:24, name:'食蚊魚',          sci:'Gambusia affinis',
     aliases:'大肚魚、胎鱂',
-    cat:'invasive', type:'fish', size:'小型', endemic:false, img:'食蚊魚.jpg',
-    desc:'體型極小，外觀樸素，體色淡金黃色或灰色，雌魚腹部圓鼓，「大肚魚」之名即源於此。約於 1913 年引入臺灣。適應力強，耐污染、低溶氧量，已廣泛擴散。雜食偏肉食性，也可進入河口區的半淡鹹水域。' },
+    cat:'invasive', type:'fish', size:'至 4 cm', endemic:false, img:'食蚊魚.jpg',
+    desc:'體型極小，外觀樸素，雌魚腹部圓鼓，「大肚魚」之名即源於此。約於 1913 年引入臺灣。適應力強，耐污染、低溶氧量，已廣泛擴散。雜食偏肉食性，以浮游動物及碎屑為主，也可進入河口區的半淡鹹水域。' },
   { id:25, name:'莫三比克口孵非鯽', sci:'Oreochromis mossambicus',
     aliases:'吳郭魚、非洲仔、南洋鯽仔',
-    cat:'invasive', type:'fish', size:'大型', endemic:false, img:'莫三比克口孵非鯽.jpg',
-    desc:'統稱吳郭魚，體色隨環境而異，一般為灰黑色，雄魚繁殖期時背、胸、尾鰭有紅色邊緣，幼魚體側有暗色橫帶。適應力強，耐汙染、低溶氧量，繁殖數量多、速度快。' },
+    cat:'invasive', type:'fish', size:'至 39 cm', endemic:false, img:'莫三比克口孵非鯽.jpg',
+    desc:'統稱吳郭魚，體色隨環境而異，一般為灰黑色，雄魚繁殖期魚鰭有紅色邊緣，幼魚體側有暗色橫帶。適應力強，耐汙染、低溶氧量，繁殖數量多、速度快。' },
   { id:26, name:'吉利非鯽',         sci:'Coptodon zillii',
     aliases:'吳郭魚、吉利吳郭魚、吉利慈鯛',
-    cat:'invasive', type:'fish', size:'大型', endemic:false, img:'吉利非鯽.jpg',
-    desc:'統稱吳郭魚，體色隨環境而異，一般為暗褐色而帶有虹彩，體側具暗色橫帶，背、臀及尾鰭具黃斑。適應力強，耐汙染、低溶氧量，繁殖數量多、速度快。' },
+    cat:'invasive', type:'fish', size:'至 40 cm', endemic:false, img:'吉利非鯽.jpg',
+    desc:'統稱吳郭魚，體色隨環境而異，一般為暗褐色而帶有虹彩，體側具暗色橫帶，魚鰭上有黃斑。適應力強，耐汙染、低溶氧量，繁殖數量多、速度快。' },
   { id:27, name:'花身副麗魚',        sci:'Parachromis managuensis',
     aliases:'珍珠石斑、淡水石斑',
-    cat:'invasive', type:'fish', size:'大型', endemic:false, img:'花身副麗魚.jpg',
+    cat:'invasive', type:'fish', size:'至 55 cm', endemic:false, img:'花身副麗魚.jpg',
     desc:'原產於中美洲。體色灰黑，全身佈滿許多白色斑紋路。為兇猛肉食性魚類，以小魚為食。親魚具有築巢產卵並護幼之行為。' },
   { id:28, name:'線鱧',              sci:'Channa striata',
-    aliases:'泰國鱧、鮕呆',
-    cat:'invasive', type:'fish', size:'大型', endemic:false, img:'線鱧.jpg',
+    aliases:'泰國鱧、泰國魚虎',
+    cat:'invasive', type:'fish', size:'至 100 cm', endemic:false, img:'線鱧.jpg',
     desc:'體型粗壯呈圓柱狀，頭大且扁平，體背側有大型黑斑，體腹側有黑白交錯的花紋。對其他魚類以及各種小型動物有巨大的威脅性。適應力極強，耐汙染、低含氧量，具有築巢及護幼習性。' },
   { id:29, name:'豹紋翼甲鯰',        sci:'Pterygoplichthys pardalis',
     aliases:'垃圾魚、琵琶鼠',
-    cat:'invasive', type:'fish', size:'大型', endemic:false, img:'豹紋翼甲鯰.jpg',
+    cat:'invasive', type:'fish', size:'至 42 cm', endemic:false, img:'豹紋翼甲鯰.jpg',
     desc:'全身覆蓋骨質甲片，外觀獨特，體色黑色而具有許多黃色的不規則紋路，有特化的吸盤狀口器。好啃食藻類、草根，對於魚、蝦卵有嚴重的危害。適應力強，耐汙染，離水亦可存活一段時間。' },
   { id:30, name:'福壽螺',            sci:'Pomacea canaliculate',
     aliases:'金寶螺、蘋果螺',
-    cat:'invasive', type:'mollusk', size:'大型', endemic:false, img:'福壽螺.jpg', img2:'福壽螺卵.jpg', img2caption:'粉紅色卵塊特寫',
+    cat:'invasive', type:'mollusk', size:'至 15 cm', endemic:false, img:'福壽螺.jpg', img2:'福壽螺卵.jpg', img2caption:'粉紅色卵塊特寫',
     desc:'外殼圓球狀，體型遠大於臺灣原生螺類。適應能力極強，大部分溝渠湖沼皆可存活，在乾燥季節，螺體可潛入泥中或雜草叢下，緊閉殼蓋進入休眠狀態，休眠期可達六個月以上。會在凸出水面的物體上產下粉紅色卵塊，為水生作物的嚴重危害動物。' },
 ];
 
@@ -651,8 +660,9 @@ function renderGrid() {
     (curCat  === 'all' || s.cat  === curCat) &&
     (curType === 'all' || s.type === curType)
   );
+  const total = SPECIES.filter(s => curCat === 'all' || s.cat === curCat).length;
   document.getElementById('stats').textContent =
-    `顯示 ${list.length} 種（共 30 種）`;
+    `顯示 ${list.length} 種（共 ${total} 種）`;
   const grid = document.getElementById('grid');
   if (!list.length) {
     grid.innerHTML = '<p class="empty">此篩選條件下無物種資料</p>';
@@ -674,13 +684,14 @@ function renderGrid() {
         </div>
         <p class="card-name">${s.name}</p>
         <p class="card-sci">${s.sci}</p>
-        <p class="card-size">體長 ${s.size}</p>
+        <p class="card-size">${s.type === 'mollusk' ? '殼長' : '體長'} ${s.size}</p>
       </div>
     </div>`;
   }).join('');
 }
 
 function openModal(id) {
+  _curSpeciesId = id;
   const s = SPECIES.find(x => x.id === id);
   document.getElementById('modal-name').textContent = s.name;
   document.getElementById('modal-sci').textContent  = s.sci;
@@ -701,7 +712,7 @@ function openModal(id) {
 
   document.getElementById('modal-meta').innerHTML = `
     <span class="meta-chip">類群：${TYPE_LABEL[s.type]}</span>
-    <span class="meta-chip">體長：${s.size}</span>
+    <span class="meta-chip">${s.type === 'mollusk' ? '殼長' : '體長'}：${s.size}</span>
   `;
 
   document.getElementById('modal-desc').textContent = s.desc;
@@ -763,13 +774,53 @@ function carouselGo(i) {
   _updateCarousel();
 }
 
-/* 觸控滑動 */
+/* ── 圖片輪播觸控 ── */
 let _tx = 0;
 const _carousel = document.getElementById('modal-carousel');
 _carousel.addEventListener('touchstart', e => { _tx = e.touches[0].clientX; }, { passive: true });
 _carousel.addEventListener('touchend',   e => {
   const dx = e.changedTouches[0].clientX - _tx;
   if (Math.abs(dx) > 40) carouselMove(dx < 0 ? 1 : -1);
+  e.stopPropagation();
+});
+
+/* ── 物種導航（modal body 左右滑） ── */
+let _curSpeciesId = null;
+
+function navigateSpecies(dir) {
+  const list = SPECIES.filter(s =>
+    (curCat  === 'all' || s.cat  === curCat) &&
+    (curType === 'all' || s.type === curType)
+  );
+  const idx = list.findIndex(s => s.id === _curSpeciesId);
+  if (idx === -1 || list.length < 2) return;
+  openModal(list[(idx + dir + list.length) % list.length].id);
+}
+
+let _btx = 0, _bty = 0;
+const _modalBody = document.getElementById('modal-body');
+_modalBody.addEventListener('touchstart', e => {
+  _btx = e.touches[0].clientX;
+  _bty = e.touches[0].clientY;
+}, { passive: true });
+_modalBody.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - _btx;
+  const dy = e.changedTouches[0].clientY - _bty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy))
+    navigateSpecies(dx < 0 ? 1 : -1);
+});
+
+/* ── 下滑關閉 modal ── */
+let _mty = 0, _mtx = 0;
+const _modal = document.getElementById('modal');
+_modal.addEventListener('touchstart', e => {
+  _mty = e.touches[0].clientY;
+  _mtx = e.touches[0].clientX;
+}, { passive: true });
+_modal.addEventListener('touchend', e => {
+  const dy = e.changedTouches[0].clientY - _mty;
+  const dx = e.changedTouches[0].clientX - _mtx;
+  if (dy > 90 && Math.abs(dy) > Math.abs(dx) * 2) closeModal();
 });
 
 function onBackdropClick(e) {
